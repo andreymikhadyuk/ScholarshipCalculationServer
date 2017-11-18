@@ -5,8 +5,29 @@ import com.mikhadyuk.scholarshipcalculator.model.User;
 import com.mikhadyuk.scholarshipcalculator.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 public class UserDaoImpl implements UserDao {
+    @Override
+    public User getById(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        return session.get(User.class, id);
+    }
+
+    @Override
+    public User getByUsernameAndPassword(String username, String password) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query<User> query = session.createQuery("from User where username = :username and password = :password"
+        , User.class);
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+        User user = query.uniqueResult();
+        if (user != null) {
+            user.setPassword("");
+        }
+        return user;
+    }
+
     @Override
     public void save(User user) {
         Session session = HibernateUtil.getSessionFactory().openSession();
