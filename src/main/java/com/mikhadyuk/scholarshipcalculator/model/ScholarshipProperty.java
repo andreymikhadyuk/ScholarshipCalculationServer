@@ -1,10 +1,13 @@
 package com.mikhadyuk.scholarshipcalculator.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "scholarship_property")
-public class ScholarshipProperty {
+public class ScholarshipProperty implements Serializable{
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

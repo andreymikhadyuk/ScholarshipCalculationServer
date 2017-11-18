@@ -1,5 +1,9 @@
 package com.mikhadyuk.scholarshipcalculator.model.enums;
 
-public enum Role {
-    ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_SECRETARY
+import java.io.Serializable;
+
+public enum Role implements Serializable{
+    ROLE_ADMIN, ROLE_ACCOUNTANT, ROLE_SECRETARY;
+
+    private static final long serialVersionUID = 1L;
 }

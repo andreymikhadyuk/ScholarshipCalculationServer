@@ -1,16 +1,13 @@
 package com.mikhadyuk.scholarshipcalculator.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "student")
-public class Student {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-
+@PrimaryKeyJoinColumn(name = "id")
+public class Student extends Person{
     @Column(name = "group_number")
     private int groupNumber;
 
@@ -32,14 +29,6 @@ public class Student {
 
     @Column(name = "nominal_scholarship")
     private boolean nominalScholarship; //именная
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getGroupNumber() {
         return groupNumber;
