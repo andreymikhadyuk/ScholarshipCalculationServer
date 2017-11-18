@@ -40,7 +40,9 @@ public class AcceptedConnection implements Runnable {
                 }
                 System.out.println(String.format("Клиент #%d: %s"
                         , clientNumber, actionType.getActionDescription()));
-                action.doAction(outputStream, inputStream);
+                if (action.doAction(outputStream, inputStream)) {
+                    break;
+                }
             }
         } catch (ClassNotFoundException | IOException e) {
         } finally {
