@@ -26,7 +26,7 @@ public class LoginAction implements Action {
         try {
             user = (User) inputStream.readObject();
             user.setPassword(encoder.encode(user.getPassword()));
-            User userInDB = userDao.getByUsernameAndPassword(user.getUsername(), user.getPassword());
+            User userInDB = userDao.findByUsernameAndPassword(user.getUsername(), user.getPassword());
             outputStream.writeObject(userInDB);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

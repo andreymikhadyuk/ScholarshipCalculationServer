@@ -31,7 +31,7 @@ public class RegistrationAction implements Action {
         }
         user.setPassword(encoder.encode(user.getPassword()));
         userDao.save(user);
-        User userInDB = userDao.getByUsernameAndPassword(user.getUsername(), user.getPassword());
+        User userInDB = userDao.findByUsernameAndPassword(user.getUsername(), user.getPassword());
         try {
             outputStream.writeObject(userInDB);
         } catch (IOException e) {
