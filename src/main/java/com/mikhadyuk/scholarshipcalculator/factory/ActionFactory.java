@@ -2,6 +2,7 @@ package com.mikhadyuk.scholarshipcalculator.factory;
 
 import com.mikhadyuk.scholarshipcalculator.action.Action;
 import com.mikhadyuk.scholarshipcalculator.action.impl.LoginAction;
+import com.mikhadyuk.scholarshipcalculator.action.impl.RegistrationAction;
 import com.mikhadyuk.scholarshipcalculator.connection.ActionType;
 import com.mikhadyuk.scholarshipcalculator.exception.ActionTypeNotFoundException;
 
@@ -11,6 +12,9 @@ public class ActionFactory {
         switch (actionType) {
             case LOGIN:
                 action = new LoginAction();
+                break;
+            case REGISTRATION:
+                action = new RegistrationAction();
                 break;
             default:
                 throw new ActionTypeNotFoundException();
