@@ -30,7 +30,7 @@ public class AcceptedConnection implements Runnable {
             inputStream = new ObjectInputStream(socket.getInputStream());
 
             while (true) {
-                ActionType actionType = ActionType.valueOf((String) inputStream.readObject());
+                ActionType actionType = (ActionType) inputStream.readObject();
                 Action action;
                 try {
                     action = actionFactory.createAction(actionType);
@@ -38,12 +38,11 @@ public class AcceptedConnection implements Runnable {
                     System.out.println("Неизвестное сообщение от клиента");
                     break;
                 }
-                System.out.print(String.format("Клиент #%d: %s"
+                System.out.println(String.format("Клиент #%d: %s"
                         , clientNumber, actionType.getActionDescription()));
                 action.doAction(outputStream, inputStream);
             }
         } catch (ClassNotFoundException | IOException e) {
-            e.printStackTrace();
         } finally {
             if (socket != null) {
                 try {
@@ -68,7 +67,7 @@ public class AcceptedConnection implements Runnable {
                     e.printStackTrace();
                 }
             }
+            System.out.println(String.format("Клиент #%d отключился, время = %s", clientNumber, new Date()));
         }
-        System.out.println(String.format("Клиент #%d отключился, время = %s", clientNumber, new Date()));
     }
 }
