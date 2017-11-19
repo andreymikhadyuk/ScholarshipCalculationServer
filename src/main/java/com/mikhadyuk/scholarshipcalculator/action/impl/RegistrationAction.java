@@ -11,11 +11,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class LoginAction implements Action {
+public class RegistrationAction implements Action {
     private UserDao userDao;
     private EncoderUtil encoder;
 
-    public LoginAction() {
+    public RegistrationAction() {
         userDao = SingletonUtil.getInstance(UserDaoImpl.class);
         encoder = SingletonUtil.getInstance(EncoderUtil.class);
     }
@@ -25,13 +25,20 @@ public class LoginAction implements Action {
         User user;
         try {
             user = (User) inputStream.readObject();
-            user.setPassword(encoder.encode(user.getPassword()));
-            User userInDB = userDao.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-            outputStream.writeObject(userInDB);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return true;
         }
+        user.setPassword(encoder.encode(user.getPassword()));
+        userDao.save(user);
+        User userInDB = userDao.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+        try {
+            outputStream.writeObject(userInDB);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return true;
+        }
+
         return false;
     }
 }
