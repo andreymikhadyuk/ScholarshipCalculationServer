@@ -1,5 +1,7 @@
 package com.mikhadyuk.scholarshipcalculator.model;
 
+import com.mikhadyuk.scholarshipcalculator.model.enums.EducationalScholarshipType;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "speciality")
 public class Speciality implements Serializable{
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +22,10 @@ public class Speciality implements Serializable{
     @ManyToOne
     @JoinColumn(name = "faculty_id", nullable = false)
     private Faculty faculty;
+
+    @Column(name = "educational_scholarship_type")
+    @Enumerated(EnumType.STRING)
+    private EducationalScholarshipType educationalScholarshipType;
 
     @OneToMany(mappedBy = "speciality", fetch = FetchType.LAZY)
     private List<Student> students;
@@ -46,6 +52,14 @@ public class Speciality implements Serializable{
 
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
+    }
+
+    public EducationalScholarshipType getEducationalScholarshipType() {
+        return educationalScholarshipType;
+    }
+
+    public void setEducationalScholarshipType(EducationalScholarshipType educationalScholarshipType) {
+        this.educationalScholarshipType = educationalScholarshipType;
     }
 
     public List<Student> getStudents() {
