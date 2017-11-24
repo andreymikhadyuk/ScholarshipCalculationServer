@@ -23,6 +23,9 @@ public class Scholarship implements Serializable{
     @OneToMany(mappedBy = "scholarship", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ScholarshipProperty> scholarshipProperties;
 
+    @OneToMany(mappedBy = "scholarship", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<BaseAmount> baseAmounts;
+
     public int getId() {
         return id;
     }
@@ -53,5 +56,13 @@ public class Scholarship implements Serializable{
 
     public void setScholarshipProperties(List<ScholarshipProperty> scholarshipProperties) {
         this.scholarshipProperties = scholarshipProperties;
+    }
+
+    public List<BaseAmount> getBaseAmounts() {
+        return baseAmounts;
+    }
+
+    public void setBaseAmounts(List<BaseAmount> baseAmounts) {
+        this.baseAmounts = baseAmounts;
     }
 }
