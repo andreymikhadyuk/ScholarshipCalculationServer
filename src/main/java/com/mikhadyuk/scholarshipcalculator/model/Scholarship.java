@@ -20,7 +20,7 @@ public class Scholarship implements Serializable{
     @Column(nullable = false)
     private boolean educational;
 
-    @OneToMany(mappedBy = "scholarship", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "scholarship", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ScholarshipProperty> scholarshipProperties;
 
     public int getId() {

@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "scholarship_property")
 public class ScholarshipProperty implements Serializable{
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 5L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class ScholarshipProperty implements Serializable{
     private int minAverageScore;
 
     @Column(name = "increase_coefficient")
-    private double increaseCoefficient;
+    private double increaseCoefficient = 1.0;
 
     public int getId() {
         return id;
