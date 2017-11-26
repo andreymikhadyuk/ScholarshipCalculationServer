@@ -1,7 +1,6 @@
 package com.mikhadyuk.scholarshipcalculator.action.impl;
 
 import com.mikhadyuk.scholarshipcalculator.action.Action;
-import com.mikhadyuk.scholarshipcalculator.dao.UserDao;
 import com.mikhadyuk.scholarshipcalculator.dao.impl.UserDaoImpl;
 import com.mikhadyuk.scholarshipcalculator.model.User;
 import com.mikhadyuk.scholarshipcalculator.util.EncoderUtil;
@@ -12,7 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class RegistrationAction implements Action {
-    private UserDao userDao;
+    private UserDaoImpl userDao;
     private EncoderUtil encoder;
 
     public RegistrationAction() {
