@@ -3,8 +3,10 @@ package com.mikhadyuk.scholarshipcalculator.action.impl;
 import com.mikhadyuk.scholarshipcalculator.action.Action;
 import com.mikhadyuk.scholarshipcalculator.action.enums.ClassName;
 import com.mikhadyuk.scholarshipcalculator.dao.BaseDao;
+import com.mikhadyuk.scholarshipcalculator.dao.impl.FacultyDaoImpl;
 import com.mikhadyuk.scholarshipcalculator.dao.impl.ScholarshipDaoImpl;
 import com.mikhadyuk.scholarshipcalculator.dao.impl.ScholarshipPropertyDaoImpl;
+import com.mikhadyuk.scholarshipcalculator.dao.impl.SpecialityDaoImpl;
 import com.mikhadyuk.scholarshipcalculator.util.SingletonUtil;
 
 import java.io.IOException;
@@ -42,6 +44,12 @@ public class DeleteDataAction implements Action {
                 break;
             case SCHOLARSHIP_PROPERTY:
                 baseDao = SingletonUtil.getInstance(ScholarshipPropertyDaoImpl.class);
+                break;
+            case FACULTY:
+                baseDao = SingletonUtil.getInstance(FacultyDaoImpl.class);
+                break;
+            case SPECIALITY:
+                baseDao = SingletonUtil.getInstance(SpecialityDaoImpl.class);
                 break;
             default:
                 return;

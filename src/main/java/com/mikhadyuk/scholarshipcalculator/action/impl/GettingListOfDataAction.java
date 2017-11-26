@@ -2,9 +2,9 @@ package com.mikhadyuk.scholarshipcalculator.action.impl;
 
 import com.mikhadyuk.scholarshipcalculator.action.Action;
 import com.mikhadyuk.scholarshipcalculator.dao.BaseDao;
+import com.mikhadyuk.scholarshipcalculator.dao.impl.FacultyDaoImpl;
 import com.mikhadyuk.scholarshipcalculator.dao.impl.ScholarshipDaoImpl;
 import com.mikhadyuk.scholarshipcalculator.action.enums.ClassName;
-import com.mikhadyuk.scholarshipcalculator.model.Scholarship;
 import com.mikhadyuk.scholarshipcalculator.util.SingletonUtil;
 
 import java.io.IOException;
@@ -16,7 +16,6 @@ public class GettingListOfDataAction implements Action {
     private BaseDao baseDao;
 
     public GettingListOfDataAction() {
-        baseDao = SingletonUtil.getInstance(ScholarshipDaoImpl.class);
     }
 
     @Override
@@ -40,10 +39,14 @@ public class GettingListOfDataAction implements Action {
         List list = null;
         switch (className) {
             case SCHOLARSHIP:
-                List<Scholarship> scholarshipList = baseDao.findAll();
-                scholarshipList.stream().map(s -> s.getBaseAmounts());
-                list = scholarshipList;
+                baseDao = SingletonUtil.getInstance(ScholarshipDaoImpl.class);
                 break;
+            case FACULTY:
+                baseDao = SingletonUtil.getInstance(FacultyDaoImpl.class);
+                break;
+        }
+        if (list == null) {
+            list = baseDao.findAll();
         }
         return list;
     }

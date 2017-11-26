@@ -2,7 +2,9 @@ package com.mikhadyuk.scholarshipcalculator.action.impl;
 
 import com.mikhadyuk.scholarshipcalculator.action.Action;
 import com.mikhadyuk.scholarshipcalculator.dao.BaseDao;
+import com.mikhadyuk.scholarshipcalculator.dao.impl.FacultyDaoImpl;
 import com.mikhadyuk.scholarshipcalculator.dao.impl.ScholarshipDaoImpl;
+import com.mikhadyuk.scholarshipcalculator.model.Faculty;
 import com.mikhadyuk.scholarshipcalculator.model.Scholarship;
 import com.mikhadyuk.scholarshipcalculator.util.SingletonUtil;
 
@@ -33,7 +35,12 @@ public class UpdateDataAction implements Action{
     private Object update(Object objectForSaving) {
         Object object = null;
         if (objectForSaving instanceof Scholarship) {
-            object = baseDao.update((Scholarship) objectForSaving);
+            baseDao = SingletonUtil.getInstance(ScholarshipDaoImpl.class);
+        } else if (objectForSaving instanceof Faculty) {
+            baseDao = SingletonUtil.getInstance(FacultyDaoImpl.class);
+        }
+        if (object == null) {
+            object = baseDao.update(objectForSaving);
         }
         return object;
     }
