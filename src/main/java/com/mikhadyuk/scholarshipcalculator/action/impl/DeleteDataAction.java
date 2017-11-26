@@ -4,6 +4,7 @@ import com.mikhadyuk.scholarshipcalculator.action.Action;
 import com.mikhadyuk.scholarshipcalculator.action.enums.ClassName;
 import com.mikhadyuk.scholarshipcalculator.dao.BaseDao;
 import com.mikhadyuk.scholarshipcalculator.dao.impl.ScholarshipDaoImpl;
+import com.mikhadyuk.scholarshipcalculator.dao.impl.ScholarshipPropertyDaoImpl;
 import com.mikhadyuk.scholarshipcalculator.util.SingletonUtil;
 
 import java.io.IOException;
@@ -37,8 +38,14 @@ public class DeleteDataAction implements Action {
     private void delete(ClassName className, Integer id) {
         switch (className) {
             case SCHOLARSHIP:
-                baseDao.delete(id);
+                baseDao = SingletonUtil.getInstance(ScholarshipDaoImpl.class);
                 break;
+            case SCHOLARSHIP_PROPERTY:
+                baseDao = SingletonUtil.getInstance(ScholarshipPropertyDaoImpl.class);
+                break;
+            default:
+                return;
         }
+        baseDao.delete(id);
     }
 }

@@ -4,6 +4,7 @@ import com.mikhadyuk.scholarshipcalculator.action.Action;
 import com.mikhadyuk.scholarshipcalculator.dao.BaseDao;
 import com.mikhadyuk.scholarshipcalculator.dao.impl.ScholarshipDaoImpl;
 import com.mikhadyuk.scholarshipcalculator.action.enums.ClassName;
+import com.mikhadyuk.scholarshipcalculator.model.Scholarship;
 import com.mikhadyuk.scholarshipcalculator.util.SingletonUtil;
 
 import java.io.IOException;
@@ -39,7 +40,9 @@ public class GettingListOfDataAction implements Action {
         List list = null;
         switch (className) {
             case SCHOLARSHIP:
-                list = baseDao.findAll();
+                List<Scholarship> scholarshipList = baseDao.findAll();
+                scholarshipList.stream().map(s -> s.getBaseAmounts());
+                list = scholarshipList;
                 break;
         }
         return list;

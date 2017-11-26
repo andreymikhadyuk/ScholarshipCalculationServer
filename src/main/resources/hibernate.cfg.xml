@@ -11,6 +11,7 @@
         <property name="hibernate.connection.password">root</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="show_sql">false</property>
+        <mapping class="com.mikhadyuk.scholarshipcalculator.model.BaseAmount"/>
         <mapping class="com.mikhadyuk.scholarshipcalculator.model.Faculty"/>
         <mapping class="com.mikhadyuk.scholarshipcalculator.model.Mark"/>
         <mapping class="com.mikhadyuk.scholarshipcalculator.model.Person"/>
