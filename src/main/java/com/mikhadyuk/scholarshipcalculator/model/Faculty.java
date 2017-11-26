@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 @Table(name = "faculty")
 public class Faculty implements Serializable{
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +17,10 @@ public class Faculty implements Serializable{
     @Column(name = "faculty_name", nullable = false)
     private String facultyName;
 
-    @OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Column(name = "short_faculty_name", nullable = false)
+    private String shortFacultyName;
+
+    @OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Speciality> specialities;
 
     public int getId() {
@@ -34,6 +37,14 @@ public class Faculty implements Serializable{
 
     public void setFacultyName(String facultyName) {
         this.facultyName = facultyName;
+    }
+
+    public String getShortFacultyName() {
+        return shortFacultyName;
+    }
+
+    public void setShortFacultyName(String shortFacultyName) {
+        this.shortFacultyName = shortFacultyName;
     }
 
     public List<Speciality> getSpecialities() {

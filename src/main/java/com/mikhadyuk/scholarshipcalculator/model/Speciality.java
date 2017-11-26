@@ -19,6 +19,9 @@ public class Speciality implements Serializable{
     @Column(name = "speciality_name", nullable = false)
     private String specialityName;
 
+    @Column(name = "short_speciality_name", nullable = false)
+    private String shortSpecialityName;
+
     @ManyToOne
     @JoinColumn(name = "faculty_id", nullable = false)
     private Faculty faculty;
@@ -44,6 +47,14 @@ public class Speciality implements Serializable{
 
     public void setSpecialityName(String specialityName) {
         this.specialityName = specialityName;
+    }
+
+    public String getShortSpecialityName() {
+        return shortSpecialityName;
+    }
+
+    public void setShortSpecialityName(String shortSpecialityName) {
+        this.shortSpecialityName = shortSpecialityName;
     }
 
     public Faculty getFaculty() {
