@@ -2,9 +2,7 @@ package com.mikhadyuk.scholarshipcalculator.action.impl;
 
 import com.mikhadyuk.scholarshipcalculator.action.Action;
 import com.mikhadyuk.scholarshipcalculator.dao.BaseDao;
-import com.mikhadyuk.scholarshipcalculator.dao.impl.FacultyDaoImpl;
-import com.mikhadyuk.scholarshipcalculator.dao.impl.ScholarshipDaoImpl;
-import com.mikhadyuk.scholarshipcalculator.action.enums.ClassName;
+import com.mikhadyuk.scholarshipcalculator.factory.DaoFactory;
 import com.mikhadyuk.scholarshipcalculator.util.SingletonUtil;
 
 import java.io.IOException;
@@ -13,9 +11,12 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 public class GettingListOfDataAction implements Action {
+    private DaoFactory daoFactory;
+
     private BaseDao baseDao;
 
     public GettingListOfDataAction() {
+        daoFactory = SingletonUtil.getInstance(DaoFactory.class);
     }
 
     @Override
@@ -26,7 +27,7 @@ public class GettingListOfDataAction implements Action {
             if (c == null) {
                 return true;
             }
-            List list = getListOfData(ClassName.getClassNameByClassType(c));
+            List list = getListOfData(c);
             outputStream.writeObject(list);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -35,16 +36,9 @@ public class GettingListOfDataAction implements Action {
         return false;
     }
 
-    private List getListOfData(ClassName className) {
+    private List getListOfData(Class c) {
         List list = null;
-        switch (className) {
-            case SCHOLARSHIP:
-                baseDao = SingletonUtil.getInstance(ScholarshipDaoImpl.class);
-                break;
-            case FACULTY:
-                baseDao = SingletonUtil.getInstance(FacultyDaoImpl.class);
-                break;
-        }
+        baseDao = daoFactory.getBaseDaoByClass(c);
         if (list == null) {
             list = baseDao.findAll();
         }

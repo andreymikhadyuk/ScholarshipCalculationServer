@@ -1,14 +1,11 @@
 package com.mikhadyuk.scholarshipcalculator.action.enums;
 
-import com.mikhadyuk.scholarshipcalculator.model.Faculty;
-import com.mikhadyuk.scholarshipcalculator.model.Scholarship;
-import com.mikhadyuk.scholarshipcalculator.model.ScholarshipProperty;
-import com.mikhadyuk.scholarshipcalculator.model.Speciality;
+import com.mikhadyuk.scholarshipcalculator.model.*;
 
 import java.io.Serializable;
 
 public enum ClassName implements Serializable{
-    NONE, SCHOLARSHIP, SCHOLARSHIP_PROPERTY, FACULTY, SPECIALITY;
+    NONE, SCHOLARSHIP, SCHOLARSHIP_PROPERTY, FACULTY, SPECIALITY, STUDENT, MARK;
 
     public static ClassName getClassNameByClassType(Class c) {
         if (c == Scholarship.class) {
@@ -19,6 +16,10 @@ public enum ClassName implements Serializable{
             return FACULTY;
         } else if (c == Speciality.class) {
             return SPECIALITY;
+        } else if (c == Student.class) {
+            return STUDENT;
+        } else if (c == Mark.class) {
+            return MARK;
         }
         return NONE;
     }
