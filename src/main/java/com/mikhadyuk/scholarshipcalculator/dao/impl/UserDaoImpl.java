@@ -43,6 +43,21 @@ public class UserDaoImpl extends BaseDao<Integer, User> implements UserDao {
 
     @Override
     public List<User> findAll() {
-        throw new UnsupportedOperationException();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<User> objects;
+        try {
+            objects = session.createQuery("from User").list();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return objects;
+    }
+
+    @Override
+    public User update(User entity) {
+        super.update(entity);
+        return findById(entity.getId());
     }
 }

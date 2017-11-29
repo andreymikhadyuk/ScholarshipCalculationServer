@@ -1,7 +1,5 @@
 package com.mikhadyuk.scholarshipcalculator.model;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -31,6 +29,10 @@ public class Scholarship implements Serializable{
     @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "scholarship", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BaseAmount> baseAmounts;
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(mappedBy = "scholarships")
+    private List<Student> students;
 
     public int getId() {
         return id;
@@ -70,5 +72,13 @@ public class Scholarship implements Serializable{
 
     public void setBaseAmounts(List<BaseAmount> baseAmounts) {
         this.baseAmounts = baseAmounts;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }
