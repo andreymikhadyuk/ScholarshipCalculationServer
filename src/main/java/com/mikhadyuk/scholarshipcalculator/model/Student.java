@@ -1,5 +1,8 @@
 package com.mikhadyuk.scholarshipcalculator.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -7,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "student")
 @PrimaryKeyJoinColumn(name = "id")
-public class Student extends Person{
+public class Student extends Person {
     @Column(name = "group_number")
     private int groupNumber;
 
@@ -15,20 +18,21 @@ public class Student extends Person{
     @JoinColumn(name = "speciality_id")
     private Speciality speciality;
 
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Mark> marks;
 
-    @Column(name = "disability_Group")
-    private boolean disabilityGroup;
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany
+    @JoinTable(name = "students_scholarships", joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "scholarship_id"))
+    private List<Scholarship> scholarships;
 
-    @Column(name = "social_scholarship")
-    private boolean socialScholarship;
+    @Column(name = "average_score")
+    private double averageScore;
 
-    @Column(name = "personal_scholarship")
-    private boolean personalScholarship;
-
-    @Column(name = "nominal_scholarship")
-    private boolean nominalScholarship; //именная
+    @Column(name = "scholarship_amount")
+    private double scholarshipAmount;
 
     public int getGroupNumber() {
         return groupNumber;
@@ -54,35 +58,27 @@ public class Student extends Person{
         this.marks = marks;
     }
 
-    public boolean isDisabilityGroup() {
-        return disabilityGroup;
+    public List<Scholarship> getScholarships() {
+        return scholarships;
     }
 
-    public void setDisabilityGroup(boolean disabilityGroup) {
-        this.disabilityGroup = disabilityGroup;
+    public void setScholarships(List<Scholarship> scholarships) {
+        this.scholarships = scholarships;
     }
 
-    public boolean isSocialScholarship() {
-        return socialScholarship;
+    public double getAverageScore() {
+        return averageScore;
     }
 
-    public void setSocialScholarship(boolean socialScholarship) {
-        this.socialScholarship = socialScholarship;
+    public void setAverageScore(double averageScore) {
+        this.averageScore = averageScore;
     }
 
-    public boolean isPersonalScholarship() {
-        return personalScholarship;
+    public double getScholarshipAmount() {
+        return scholarshipAmount;
     }
 
-    public void setPersonalScholarship(boolean personalScholarship) {
-        this.personalScholarship = personalScholarship;
-    }
-
-    public boolean isNominalScholarship() {
-        return nominalScholarship;
-    }
-
-    public void setNominalScholarship(boolean nominalScholarship) {
-        this.nominalScholarship = nominalScholarship;
+    public void setScholarshipAmount(double scholarshipAmount) {
+        this.scholarshipAmount = scholarshipAmount;
     }
 }
