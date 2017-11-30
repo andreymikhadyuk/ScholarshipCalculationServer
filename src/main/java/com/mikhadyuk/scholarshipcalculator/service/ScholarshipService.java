@@ -1,6 +1,7 @@
 package com.mikhadyuk.scholarshipcalculator.service;
 
 import com.mikhadyuk.scholarshipcalculator.dao.impl.BaseAmountDaoImpl;
+import com.mikhadyuk.scholarshipcalculator.dao.impl.ScholarshipDaoImpl;
 import com.mikhadyuk.scholarshipcalculator.model.BaseAmount;
 import com.mikhadyuk.scholarshipcalculator.model.Scholarship;
 import com.mikhadyuk.scholarshipcalculator.model.Student;
@@ -10,9 +11,11 @@ import java.util.List;
 
 public class ScholarshipService {
     private BaseAmountDaoImpl baseAmountDao;
+    private ScholarshipDaoImpl scholarshipDao;
 
     public ScholarshipService() {
         baseAmountDao = SingletonUtil.getInstance(BaseAmountDaoImpl.class);
+        scholarshipDao = SingletonUtil.getInstance(ScholarshipDaoImpl.class);
     }
 
     public double calculateScholarshipAmount(Student student) {
@@ -43,5 +46,9 @@ public class ScholarshipService {
 
     private double calculateNonEducationalScholarship(Scholarship scholarship) {
         return scholarship.getScholarshipProperties().get(0).getAmount();
+    }
+
+    public List<Scholarship> findAll() {
+        return scholarshipDao.findAll();
     }
 }

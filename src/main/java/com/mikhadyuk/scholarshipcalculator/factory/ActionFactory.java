@@ -28,6 +28,9 @@ public class ActionFactory {
             case DELETE_DATA:
                 action = SingletonUtil.getInstance(DeleteDataAction.class);
                 break;
+            case REPORT_CREATING:
+                action = SingletonUtil.getInstance(ReportCreatingAction.class);
+                break;
             default:
                 throw new ActionTypeNotFoundException();
         }
