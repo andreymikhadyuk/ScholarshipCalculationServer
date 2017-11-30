@@ -35,6 +35,9 @@ public class ScholarshipService {
                 .filter(p -> student.getAverageScore() >= p.getMinAverageScore()
                         && student.getAverageScore() < p.getMaxAverageScore())
                 .findFirst().map(s -> baseScholarshipAmount * s.getIncreaseCoefficient()).orElse(0.);
+        if (student.isHandicapped()) {
+            scholarshipAmount *= 1.5;
+        }
         return scholarshipAmount;
     }
 
