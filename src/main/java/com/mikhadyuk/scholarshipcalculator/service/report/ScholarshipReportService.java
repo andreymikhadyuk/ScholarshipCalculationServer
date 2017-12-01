@@ -40,8 +40,6 @@ public class ScholarshipReportService implements ReportService {
         createTableHeaders();
 
         for (Scholarship scholarship : scholarships) {
-            addDelimiterWithinTable();
-            addEnter();
             if (scholarship.isEducational()) {
                 createEducationalRow(scholarship);
             } else {
@@ -86,12 +84,15 @@ public class ScholarshipReportService implements ReportService {
 
     private void createEducationalRow(Scholarship scholarship) {
         for (ScholarshipProperty scholarshipProperty : scholarship.getScholarshipProperties()) {
+            addDelimiterWithinTable();
+            addEnter();
+
             addDelimiter(ReportDelimiter.VERTICAL_LINE, 1);
 
             addInTheRowCenter(scholarship.getType(), headers[0].length());
             addDelimiter(ReportDelimiter.VERTICAL_LINE, 1);
 
-            addInTheRowCenter(scholarshipProperty.getEducationalType().name(), headers[1].length());
+            addInTheRowCenter(scholarshipProperty.getEducationalType().getLabel(), headers[1].length());
             addDelimiter(ReportDelimiter.VERTICAL_LINE, 1);
 
             addInTheRowCenter(scholarship.isEducational() ? "Да" : "Нет", headers[2].length());
@@ -120,6 +121,9 @@ public class ScholarshipReportService implements ReportService {
             return;
         }
         ScholarshipProperty scholarshipProperty = scholarship.getScholarshipProperties().get(0);
+
+        addDelimiterWithinTable();
+        addEnter();
 
         addDelimiter(ReportDelimiter.VERTICAL_LINE, 1);
 
