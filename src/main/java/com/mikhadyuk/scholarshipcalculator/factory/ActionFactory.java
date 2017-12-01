@@ -16,7 +16,7 @@ public class ActionFactory {
             case REGISTRATION:
                 action = SingletonUtil.getInstance(RegistrationAction.class);
                 break;
-            case GETTIN_LIST_OF_DATA:
+            case GETTING_LIST_OF_DATA:
                 action = SingletonUtil.getInstance(GettingListOfDataAction.class);
                 break;
             case SAVE_DATA:
@@ -30,6 +30,9 @@ public class ActionFactory {
                 break;
             case REPORT_CREATING:
                 action = SingletonUtil.getInstance(ReportCreatingAction.class);
+                break;
+            case RECALCULATE_SCHOLARSHIPS:
+                action = SingletonUtil.getInstance(RecalculateScholarshipsAction.class);
                 break;
             default:
                 throw new ActionTypeNotFoundException();

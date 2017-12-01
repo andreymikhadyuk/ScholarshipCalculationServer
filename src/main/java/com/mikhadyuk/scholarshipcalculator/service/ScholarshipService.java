@@ -20,17 +20,17 @@ public class ScholarshipService {
 
     public double calculateScholarshipAmount(Student student) {
         double scholarshipAmount = 0.;
+        List<BaseAmount> baseAmounts = baseAmountDao.findAll();
         for (Scholarship scholarship : student.getScholarships()) {
             scholarshipAmount += scholarship.isEducational()
-                    ? calculateEducationalScholarship(scholarship, student)
+                    ? calculateEducationalScholarship(scholarship, student, baseAmounts)
                     : calculateNonEducationalScholarship(scholarship);
         }
         return scholarshipAmount;
     }
 
-    private double calculateEducationalScholarship(Scholarship scholarship, Student student) {
+    private double calculateEducationalScholarship(Scholarship scholarship, Student student, List<BaseAmount> baseAmounts) {
         double scholarshipAmount = 0.;
-        List<BaseAmount> baseAmounts = baseAmountDao.findAll();
         double baseScholarshipAmount = baseAmounts.stream()
                 .filter(a -> a.getEducationalType() == student.getSpeciality().getEducationalScholarshipType())
                 .findFirst().map(BaseAmount::getAmount).orElse(0.);
