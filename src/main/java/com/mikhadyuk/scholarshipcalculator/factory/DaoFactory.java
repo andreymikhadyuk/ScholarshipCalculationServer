@@ -2,10 +2,7 @@ package com.mikhadyuk.scholarshipcalculator.factory;
 
 import com.mikhadyuk.scholarshipcalculator.action.enums.ClassName;
 import com.mikhadyuk.scholarshipcalculator.dao.BaseDao;
-import com.mikhadyuk.scholarshipcalculator.dao.impl.FacultyDaoImpl;
-import com.mikhadyuk.scholarshipcalculator.dao.impl.ScholarshipDaoImpl;
-import com.mikhadyuk.scholarshipcalculator.dao.impl.StudentDaoImpl;
-import com.mikhadyuk.scholarshipcalculator.dao.impl.UserDaoImpl;
+import com.mikhadyuk.scholarshipcalculator.dao.impl.*;
 import com.mikhadyuk.scholarshipcalculator.util.SingletonUtil;
 
 public class DaoFactory {
@@ -19,6 +16,8 @@ public class DaoFactory {
                 return SingletonUtil.getInstance(StudentDaoImpl.class);
             case USER:
                 return SingletonUtil.getInstance(UserDaoImpl.class);
+            case BASE_AMOUNT:
+                return SingletonUtil.getInstance(BaseAmountDaoImpl.class);
         }
         return null;
     }

@@ -5,7 +5,7 @@ import com.mikhadyuk.scholarshipcalculator.model.*;
 import java.io.Serializable;
 
 public enum ClassName implements Serializable{
-    NONE, SCHOLARSHIP, SCHOLARSHIP_PROPERTY, FACULTY, SPECIALITY, STUDENT, MARK, USER;
+    NONE, SCHOLARSHIP, SCHOLARSHIP_PROPERTY, FACULTY, SPECIALITY, STUDENT, MARK, USER, BASE_AMOUNT;
 
     public static ClassName getClassNameByClassType(Class c) {
         if (c == Scholarship.class) {
@@ -22,6 +22,8 @@ public enum ClassName implements Serializable{
             return MARK;
         } else if (c == User.class) {
             return USER;
+        } else if (c == BaseAmount.class) {
+            return BASE_AMOUNT;
         }
         return NONE;
     }
