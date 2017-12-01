@@ -3,7 +3,7 @@ package com.mikhadyuk.scholarshipcalculator.action.impl;
 import com.mikhadyuk.scholarshipcalculator.action.Action;
 import com.mikhadyuk.scholarshipcalculator.dao.impl.UserDaoImpl;
 import com.mikhadyuk.scholarshipcalculator.model.User;
-import com.mikhadyuk.scholarshipcalculator.util.EncoderUtil;
+import com.mikhadyuk.scholarshipcalculator.service.UserService;
 import com.mikhadyuk.scholarshipcalculator.util.SingletonUtil;
 
 import java.io.IOException;
@@ -12,11 +12,11 @@ import java.io.ObjectOutputStream;
 
 public class RegistrationAction implements Action {
     private UserDaoImpl userDao;
-    private EncoderUtil encoder;
+    private UserService userService;
 
     public RegistrationAction() {
         userDao = SingletonUtil.getInstance(UserDaoImpl.class);
-        encoder = SingletonUtil.getInstance(EncoderUtil.class);
+        userService = SingletonUtil.getInstance(UserService.class);
     }
 
     @Override
@@ -28,11 +28,10 @@ public class RegistrationAction implements Action {
             e.printStackTrace();
             return true;
         }
-        user.setPassword(encoder.encode(user.getPassword()));
-        userDao.save(user);
-        User userInDB = userDao.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+        userService.parsePassword(user);
+        User updatedUser = userDao.save(user);
         try {
-            outputStream.writeObject(userInDB);
+            outputStream.writeObject(updatedUser);
         } catch (IOException e) {
             e.printStackTrace();
             return true;

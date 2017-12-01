@@ -4,9 +4,11 @@ import com.mikhadyuk.scholarshipcalculator.action.Action;
 import com.mikhadyuk.scholarshipcalculator.dao.BaseDao;
 import com.mikhadyuk.scholarshipcalculator.factory.DaoFactory;
 import com.mikhadyuk.scholarshipcalculator.model.Student;
+import com.mikhadyuk.scholarshipcalculator.model.User;
 import com.mikhadyuk.scholarshipcalculator.service.MarkService;
 import com.mikhadyuk.scholarshipcalculator.service.ScholarshipService;
 import com.mikhadyuk.scholarshipcalculator.service.StudentService;
+import com.mikhadyuk.scholarshipcalculator.service.UserService;
 import com.mikhadyuk.scholarshipcalculator.util.SingletonUtil;
 
 import java.io.IOException;
@@ -18,6 +20,7 @@ public class UpdateDataAction implements Action{
     private MarkService markService;
     private StudentService studentService;
     private ScholarshipService scholarshipService;
+    private UserService userService;
 
     private BaseDao baseDao;
 
@@ -26,6 +29,7 @@ public class UpdateDataAction implements Action{
         markService = SingletonUtil.getInstance(MarkService.class);
         studentService = SingletonUtil.getInstance(StudentService.class);
         scholarshipService = SingletonUtil.getInstance(ScholarshipService.class);
+        userService = SingletonUtil.getInstance(UserService.class);
     }
 
     @Override
@@ -49,6 +53,8 @@ public class UpdateDataAction implements Action{
             studentService.setStudentInFields(student);
             student.setAverageScore(markService.calculateAverageScore(student.getMarks()));
             student.setScholarshipAmount(scholarshipService.calculateScholarshipAmount(student));
+        } else if (objectForSaving instanceof User) {
+            userService.parsePasswordWithCheck((User) objectForSaving);
         }
         if (object == null) {
             object = baseDao.update(objectForSaving);

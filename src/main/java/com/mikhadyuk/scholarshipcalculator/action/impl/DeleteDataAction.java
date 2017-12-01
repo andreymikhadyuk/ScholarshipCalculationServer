@@ -54,6 +54,9 @@ public class DeleteDataAction implements Action {
             case MARK:
                 baseDao = SingletonUtil.getInstance(MarkDaoImpl.class);
                 break;
+            case USER:
+                baseDao = SingletonUtil.getInstance(UserDaoImpl.class);
+                break;
             default:
                 return;
         }
