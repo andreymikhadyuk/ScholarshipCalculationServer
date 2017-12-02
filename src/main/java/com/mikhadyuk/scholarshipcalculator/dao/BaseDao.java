@@ -18,7 +18,6 @@ public abstract class BaseDao<K extends Number, T> {
             session.getTransaction().commit();
             return findById(id);
         } catch (HibernateException e) {
-            e.printStackTrace();
             session.getTransaction().rollback();
         } finally {
             if (session != null) {

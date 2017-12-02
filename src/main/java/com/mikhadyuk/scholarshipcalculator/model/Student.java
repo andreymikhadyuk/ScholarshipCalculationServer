@@ -4,7 +4,6 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -24,7 +23,7 @@ public class Student extends Person {
 
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
-    @JoinTable(name = "students_scholarships", joinColumns = @JoinColumn(name = "student_id"),
+    @JoinTable(name = "students_scholarships", joinColumns = @JoinColumn(name = "student_id", unique = false),
             inverseJoinColumns = @JoinColumn(name = "scholarship_id"))
     private List<Scholarship> scholarships;
 

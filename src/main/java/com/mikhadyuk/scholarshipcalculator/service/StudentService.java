@@ -30,7 +30,12 @@ public class StudentService {
     private void setStudentInScholarships(Student student) {
         List<Scholarship> scholarships = new ArrayList<>();
         student.getScholarships().forEach(s -> scholarships.add(scholarshipDao.findById(s.getId())));
-        scholarships.forEach(s -> s.getStudents().add(student));
+        scholarships.forEach(s -> {
+            if (!(s.getStudents().stream()
+                    .mapToInt(Student::getId)
+                    .anyMatch(id -> id == s.getId())))
+            s.getStudents().add(student);
+        });
     }
 
     public List<Student> findAll() {
